@@ -17,6 +17,7 @@ class AgentRequest(
         BaseModel
 ):
 
+    session_id:str
     message:str
 
 
@@ -32,7 +33,10 @@ async def agent_chat(
 
         {
             "query":
-            request.message
+            request.message,
+
+            "session_id":
+            request.session_id
         }
 
     )
@@ -40,13 +44,7 @@ async def agent_chat(
     return {
 
         "response":
-        result["answer"],
-
-        "plan":
-        result["plan"],
-
-        "critic":
-        result["review"]
+        result["answer"]
     }
 
 

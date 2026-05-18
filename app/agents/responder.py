@@ -2,37 +2,67 @@ from app.llm.litellm_client import (
     llm_call
 )
 
+from app.cache.semantic_cache import (
+    get_cache,
+    set_cache
+)
+
+from app.memory.vector_memory import (
+    get_memory
+)
+
 
 async def response_agent(
         state
 ):
 
+    query=state["query"]
+
+    cached=get_cache(
+        query
+    )
+
+    if cached:
+
+        state["answer"]=cached
+
+        return state
+
+    memory=await get_memory(
+        query
+    )
+
     prompt=f"""
 
 Question:
 
-{state['query']}
+{query}
 
-Plan:
-
-{state['plan']}
-
-Retrieved Context:
+Context:
 
 {state['context']}
+
+Memory:
+
+{memory}
 
 Critic Notes:
 
 {state['review']}
 
-Generate final answer.
+Generate answer.
 
 """
 
-    answer=await llm_call(
+    response=await llm_call(
         prompt
     )
 
-    state["answer"]=answer
+    set_cache(
+        query,
+        response
+    )
+
+    state["answer"]=response
 
     return state
