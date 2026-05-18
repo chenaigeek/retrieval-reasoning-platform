@@ -18,3 +18,6 @@ EMBEDDING_MODEL=os.getenv(
 COLLECTION_NAME=os.getenv(
     "COLLECTION_NAME"
 )
+RERANKER_MODEL=os.getenv(
+    "RERANKER_MODEL"
+)

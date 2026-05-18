@@ -72,7 +72,8 @@ def insert_chunks(
 
 def search(
         embedding,
-        top_k=5):
+        top_k=20
+):
 
     result=client.search(
         collection_name=
@@ -85,7 +86,10 @@ def search(
     )
 
     return [
+
         item.payload["text"]
+
         for item
+
         in result
     ]

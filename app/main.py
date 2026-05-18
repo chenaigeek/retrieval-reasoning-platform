@@ -17,3 +17,11 @@ app.include_router(
 app.include_router(
     doc_router
 )
+
+from app.api.evaluation import (
+    router as eval_router
+)
+
+app.include_router(
+    eval_router
+)
