@@ -9,24 +9,42 @@ from app.memory.chat_store import (
     add_message,
     get_history
 )
+from app.retrieval.rag import (
+    retrieve_context
+)
 
 router = APIRouter()
 
 
 @router.post("/chat")
-async def chat(request: ChatRequest):
+async def chat(
+        request:ChatRequest):
+
+    context=await retrieve_context(
+        request.message
+    )
+
+    prompt=f"""
+Context:
+
+{context}
+
+Question:
+
+{request.message}
+"""
 
     add_message(
         request.session_id,
         "user",
-        request.message
+        prompt
     )
 
-    messages = get_history(
+    messages=get_history(
         request.session_id
     )
 
-    response = await generate_response(
+    response=await generate_response(
         messages
     )
 
@@ -37,9 +55,9 @@ async def chat(request: ChatRequest):
     )
 
     return {
-        "response": response
+        "response":
+        response
     }
-
 
 @router.post("/stream")
 async def stream_chat(

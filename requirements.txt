@@ -3,3 +3,9 @@ uvicorn
 python-dotenv
 pydantic
 openai
+
+sentence-transformers
+qdrant-client
+tiktoken
+pypdf
+numpy
