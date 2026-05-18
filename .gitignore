@@ -1,0 +1,9 @@
+build/
+dist/
+venv/
+.venv/
+.env
+.env.local
+.kube/
+generated/
+exports/
