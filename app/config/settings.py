@@ -21,3 +21,6 @@ COLLECTION_NAME=os.getenv(
 RERANKER_MODEL=os.getenv(
     "RERANKER_MODEL"
 )
+AGENT_MODEL=os.getenv(
+    "AGENT_MODEL"
+)

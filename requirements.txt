@@ -9,3 +9,6 @@ tiktoken
 pypdf
 numpy
 torch
+langgraph
+litellm
+dspy-ai

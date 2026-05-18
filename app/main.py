@@ -7,6 +7,15 @@ from app.api.chat import (
 from app.api.documents import (
     router as doc_router
 )
+from app.api.agents import (
+    router as agent_router
+)
+
+
+from app.api.evaluation import (
+    router as eval_router
+)
+
 
 app=FastAPI()
 
@@ -18,10 +27,9 @@ app.include_router(
     doc_router
 )
 
-from app.api.evaluation import (
-    router as eval_router
-)
-
 app.include_router(
     eval_router
+)
+app.include_router(
+    agent_router
 )
