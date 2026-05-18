@@ -15,6 +15,8 @@ from app.api.agents import (
 from app.api.evaluation import (
     router as eval_router
 )
+from app.middleware.observability import ObservabilityMiddleware
+from app.api.monitoring import router as monitoring_router
 
 
 app=FastAPI()
@@ -33,3 +35,7 @@ app.include_router(
 app.include_router(
     agent_router
 )
+
+
+app.add_middleware(ObservabilityMiddleware)
+app.include_router(monitoring_router)

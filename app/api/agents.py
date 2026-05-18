@@ -9,6 +9,7 @@ from pydantic import (
 from app.agents.workflow import (
     graph
 )
+from app.monitoring.evaluator import hallucination_rate
 
 router=APIRouter()
 
@@ -29,22 +30,19 @@ async def agent_chat(
         AgentRequest
 ):
 
-    result=await graph.ainvoke(
+    result=await graph.ainvoke({
+    "query":request.message,
+    "session_id":request.session_id
+})
 
-        {
-            "query":
-            request.message,
-
-            "session_id":
-            request.session_id
-        }
-
+    score=hallucination_rate(
+        result["answer"],
+        result["context"]
     )
 
     return {
-
-        "response":
-        result["answer"]
+        "response":result["answer"],
+        "hallucination_rate":score
     }
 
 

@@ -12,3 +12,8 @@ torch
 langgraph
 litellm
 dspy-ai
+prometheus-client
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-fastapi
+langsmith
