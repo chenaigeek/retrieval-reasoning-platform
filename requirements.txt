@@ -19,3 +19,6 @@ opentelemetry-instrumentation-fastapi
 langsmith
 boto3
 gunicorn
+ragas
+deepeval
+pandas
