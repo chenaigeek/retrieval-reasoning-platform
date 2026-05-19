@@ -19,21 +19,11 @@ class EvaluationRequest(BaseModel):
 @router.post("/evaluate")
 async def evaluate(request: EvaluationRequest):
 
-    recall = recall_at_k(
-        request.relevant_docs,
-        request.retrieved_docs,
-        k=5
-    )
+    recall = recall_at_k(request.relevant_docs, request.retrieved_docs, k=5)
 
-    mrr_score = mrr(
-        request.relevant_docs,
-        request.retrieved_docs
-    )
+    mrr_score = mrr(request.relevant_docs, request.retrieved_docs)
 
-    return {
-        "Recall@5": round(recall,4),
-        "MRR": round(mrr_score,4)
-    }
+    return {"Recall@5": round(recall, 4), "MRR": round(mrr_score, 4)}
 
 
 # Milestone 8: full LLM evaluation pipeline
@@ -52,13 +42,10 @@ async def run_evaluation():
         output = await graph.ainvoke({"query": question})
 
         answer = output["answer"]
-        context = output.get("context","")
+        context = output.get("context", "")
 
         metrics = await evaluate_sample(
-            question=question,
-            answer=answer,
-            context=context,
-            ground_truth=truth
+            question=question, answer=answer, context=context, ground_truth=truth
         )
 
         metrics["question"] = question

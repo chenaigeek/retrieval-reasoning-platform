@@ -1,7 +1,7 @@
 import re
 
 
-def classify_query(query:str):
+def classify_query(query: str):
 
     # Heuristic complexity scoring
     score = 0
@@ -15,13 +15,13 @@ def classify_query(query:str):
         "reason",
         "evaluate",
         "explain why",
-        "tradeoff"
+        "tradeoff",
     ]
 
     if any(word in query.lower() for word in reasoning_words):
         score += 1
 
-    if len(re.findall(r"\?",query)) > 1:
+    if len(re.findall(r"\?", query)) > 1:
         score += 1
 
     return "large" if score >= 2 else "small"

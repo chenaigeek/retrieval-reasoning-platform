@@ -3,43 +3,20 @@ import redis
 
 from app.config.settings import *
 
-redis_client=redis.Redis(
-    host=REDIS_HOST,
-    port=REDIS_PORT,
-    decode_responses=True
-)
+redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, decode_responses=True)
 
 
-def get_cache(
-        key
-):
+def get_cache(key):
 
-    value=redis_client.get(
-        key
-    )
+    value = redis_client.get(key)
 
     if value:
 
-        return json.loads(
-            value
-        )
+        return json.loads(value)
 
     return None
 
 
-def set_cache(
-        key,
-        value,
-        ttl=3600
-):
+def set_cache(key, value, ttl=3600):
 
-    redis_client.setex(
-
-        key,
-
-        ttl,
-
-        json.dumps(
-            value
-        )
-    )
+    redis_client.setex(key, ttl, json.dumps(value))

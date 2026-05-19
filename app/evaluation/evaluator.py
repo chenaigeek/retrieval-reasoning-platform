@@ -5,7 +5,6 @@ from deepeval.test_case import LLMTestCase
 
 from app.monitoring.evaluator import hallucination_rate
 
-
 faithfulness_metric = FaithfulnessMetric()
 
 # Example pricing estimate; replace with actual model pricing later
@@ -25,7 +24,7 @@ async def evaluate_sample(question, answer, context, ground_truth):
         input=question,
         actual_output=answer,
         expected_output=ground_truth,
-        retrieval_context=[context]
+        retrieval_context=[context],
     )
 
     faithfulness_metric.measure(test_case)
@@ -37,8 +36,8 @@ async def evaluate_sample(question, answer, context, ground_truth):
     token_count = len((question + answer + context).split())
 
     return {
-        "faithfulness": round(faithfulness_metric.score,4),
-        "hallucination_rate": hallucination_rate(answer,context),
-        "latency": round(latency,4),
-        "cost": estimate_cost(token_count)
+        "faithfulness": round(faithfulness_metric.score, 4),
+        "hallucination_rate": hallucination_rate(answer, context),
+        "latency": round(latency, 4),
+        "cost": estimate_cost(token_count),
     }

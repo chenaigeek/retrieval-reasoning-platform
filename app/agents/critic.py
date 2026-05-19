@@ -1,13 +1,9 @@
-from app.llm.litellm_client import (
-    llm_call
-)
+from app.llm.litellm_client import llm_call
 
 
-async def critic_agent(
-        state
-):
+async def critic_agent(state):
 
-    prompt=f"""
+    prompt = f"""
 
 Review retrieved
 context.
@@ -26,10 +22,8 @@ errors.
 
 """
 
-    review=await llm_call(
-        prompt
-    )
+    review = await llm_call(prompt)
 
-    state["review"]=review
+    state["review"] = review
 
     return state

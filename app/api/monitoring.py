@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from prometheus_client import generate_latest
 from fastapi.responses import PlainTextResponse
 
-router=APIRouter()
+router = APIRouter()
 
 
 @router.get("/metrics")

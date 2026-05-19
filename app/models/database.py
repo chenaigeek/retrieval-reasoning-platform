@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.config.settings import *
 
-DATABASE_URL=f"""
+DATABASE_URL = f"""
 
 postgresql://
 {POSTGRES_USER}:
@@ -12,15 +12,8 @@ postgresql://
 {POSTGRES_PORT}/
 {POSTGRES_DB}
 
-""".replace(
-    "\n",
-    ""
-)
+""".replace("\n", "")
 
-engine=create_engine(
-    DATABASE_URL
-)
+engine = create_engine(DATABASE_URL)
 
-SessionLocal=sessionmaker(
-    bind=engine
-)
+SessionLocal = sessionmaker(bind=engine)

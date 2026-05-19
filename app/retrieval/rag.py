@@ -1,44 +1,22 @@
-from app.embeddings.encoder import (
-    generate_embeddings
-)
+from app.embeddings.encoder import generate_embeddings
 
-from app.retrieval.qdrant_store import (
-    search
-)
+from app.retrieval.qdrant_store import search
 
-from app.ranking.reranker import (
-    rerank
-)
+from app.ranking.reranker import rerank
 
 
-async def retrieve_context(
-        query:str
-):
+async def retrieve_context(query: str):
 
-    embedding=generate_embeddings(
-        [query]
-    )[0]
+    embedding = generate_embeddings([query])[0]
 
-    retrieved_docs=search(
-        embedding,
-        top_k=20
-    )
+    retrieved_docs = search(embedding, top_k=20)
 
-    reranked=rerank(
-        query=query,
-        documents=
-        retrieved_docs,
-        top_k=5
-    )
+    reranked = rerank(query=query, documents=retrieved_docs, top_k=5)
 
-    context=[]
+    context = []
 
     for item in reranked:
 
-        context.append(
-            item["text"]
-        )
+        context.append(item["text"])
 
-    return "\n".join(
-        context
-    )
+    return "\n".join(context)

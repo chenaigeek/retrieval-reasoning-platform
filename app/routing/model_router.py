@@ -2,7 +2,7 @@ from app.routing.classifier import classify_query
 from app.config.settings import SMALL_MODEL, LARGE_MODEL
 
 
-def select_model(query:str):
+def select_model(query: str):
 
     model_size = classify_query(query)
 

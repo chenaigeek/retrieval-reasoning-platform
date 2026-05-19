@@ -1,18 +1,10 @@
-from app.retrieval.rag import (
-    retrieve_context
-)
+from app.retrieval.rag import retrieve_context
 
 
-async def retriever_agent(
-        state
-):
+async def retriever_agent(state):
 
-    context=await retrieve_context(
+    context = await retrieve_context(state["query"])
 
-        state["query"]
-
-    )
-
-    state["context"]=context
+    state["context"] = context
 
     return state

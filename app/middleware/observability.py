@@ -8,25 +8,25 @@ from app.monitoring.tracing import tracer
 
 class ObservabilityMiddleware(BaseHTTPMiddleware):
 
-    async def dispatch(self,request,call_next):
+    async def dispatch(self, request, call_next):
 
         REQUEST_COUNT.inc()
         ACTIVE_REQUESTS.inc()
 
-        start=time.time()
+        start = time.time()
 
         with tracer.start_as_current_span(request.url.path):
 
             try:
 
-                response=await call_next(request)
+                response = await call_next(request)
 
             except Exception:
 
                 FAILURE_COUNT.inc()
                 raise
 
-        latency=time.time()-start
+        latency = time.time() - start
 
         LATENCY.observe(latency)
 

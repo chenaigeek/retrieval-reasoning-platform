@@ -1,13 +1,9 @@
-from app.llm.litellm_client import (
-    llm_call
-)
+from app.llm.litellm_client import llm_call
 
 
-async def planner_agent(
-        state
-):
+async def planner_agent(state):
 
-    prompt=f"""
+    prompt = f"""
 
 Break this question
 into subtasks.
@@ -18,10 +14,8 @@ Question:
 
 """
 
-    task_plan=await llm_call(
-        prompt
-    )
+    task_plan = await llm_call(prompt)
 
-    state["plan"]=task_plan
+    state["plan"] = task_plan
 
     return state
