@@ -31,9 +31,9 @@ async def agent_chat(
 ):
 
     result=await graph.ainvoke({
-    "query":request.message,
-    "session_id":request.session_id
-})
+        "query":request.message,
+        "session_id":request.session_id
+    })
 
     score=hallucination_rate(
         result["answer"],
@@ -42,7 +42,8 @@ async def agent_chat(
 
     return {
         "response":result["answer"],
-        "hallucination_rate":score
+        "hallucination_rate":score,
+        "model_used":result["model"]
     }
 
 

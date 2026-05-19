@@ -22,19 +22,14 @@ from app.agents.responder import (
 )
 
 
-class AgentState(
-        TypedDict
-):
-
+class AgentState(TypedDict):
     query:str
-
     plan:str
-
     context:str
-
     review:str
-
     answer:str
+    token_count:int
+    model:str
 
 
 workflow=StateGraph(

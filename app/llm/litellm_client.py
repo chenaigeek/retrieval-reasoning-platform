@@ -1,17 +1,30 @@
 from litellm import acompletion
+
 from app.monitoring.metrics import TOKEN_USAGE
-from app.config.settings import AGENT_MODEL
+from app.routing.ray_router import route_request
 
 
 async def llm_call(prompt:str):
 
-    response=await acompletion(
-        model=AGENT_MODEL,
-        messages=[{"role":"user","content":prompt}]
+    # Dynamically select model based on query complexity
+    model = ray.get(
+        route_request.remote(prompt)
     )
 
-    usage=response.usage.total_tokens if response.usage else 0
+    response = await acompletion(
+        model=model,
+        messages=[{
+            "role":"user",
+            "content":prompt
+        }]
+    )
+
+    usage = response.usage.total_tokens if response.usage else 0
 
     TOKEN_USAGE.inc(usage)
 
-    return response.choices[0].message.content
+    return {
+        "content":response.choices[0].message.content,
+        "token_count":usage,
+        "model":model
+    }

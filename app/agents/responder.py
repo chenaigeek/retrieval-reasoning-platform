@@ -54,15 +54,15 @@ Generate answer.
 
 """
 
-    response=await llm_call(
-        prompt
-    )
+    response = await llm_call(prompt)
+
+    state["answer"] = response["content"]
+    state["token_count"] = response["token_count"]
+    state["model"] = response["model"]
 
     set_cache(
         query,
         response
     )
-
-    state["answer"]=response
 
     return state
